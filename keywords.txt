@@ -1,0 +1,25 @@
+#######################################
+# Syntax Coloring Map For ESC
+#######################################
+
+#######################################
+# Datatypes and classes (KEYWORD1)
+#######################################
+
+I2C_ESC	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+calib	KEYWORD2
+arm	KEYWORD2
+stop	KEYWORD2
+speed	KEYWORD2
+setCalibrationDelay	KEYWORD2
+setStopPulse	KEYWORD2
+rampSpeed	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
