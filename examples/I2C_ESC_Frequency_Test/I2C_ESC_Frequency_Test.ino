@@ -1,28 +1,21 @@
 /** 
-This sketch is for checking frequency control over the PWM signal
-using the serial monitor as an input for Frequency
-Maximum input Frequency:  1000
-Minimum input Frequency:  40
-
-Hardware: : 1 * Arduino compatable board 
-          : 1 * 
-          : 1 * 
-
-WireColor Coding:   black = ground
-                    red = + 12vDC 
-                    white = signal
+ * This sketch is for checking frequency control over the PWM signal
+ * using the serial monitor as an input for Frequency
+ * Maximum input Frequency:  1600
+ * Minimum input Frequency:  40
+ *
+ * Hardware: : 1 * Arduino compatable board 
+ *           : 2 * Adafruit PCA9685 16-Channel 12-bit PWM/Servo Driver - I2C interface
 **/
 
 #include "I2C_Array_ESC.h"
 #define LED_PIN (13)            // Pin for the LED 
-#define SPEED_MIN (1000)        // Set the Minimum Speed in microseconds
-#define SPEED_MAX (2000)        // Set the Maximum Speed in microseconds
-#define ARM_VALUE (500)         // Set the Arm value in microseconds
 #define SERVO_FREQ (60)         // Analog servos run at ~60 Hz updates
+
 
 I2C_Array_ESC myESC (0x40, SPEED_MIN, SPEED_MAX, ARM_VALUE);       // ESC_Name (I2C_address, ESC PIN, Minimum Value, Maximum Value, Default Speed, Arm Value)
 I2C_Array_ESC myESC1 (0x41, SPEED_MIN, SPEED_MAX, ARM_VALUE);      // ESC_Name (I2C_address, ESC PIN, Minimum Value, Maximum Value, Default Speed, Arm Value)
-int oESC;                                                 // Variable for the speed sent to the ESC
+int oFrequancy;                                                 // Variable for the speed sent to the ESC
 
 void setup() {
   // Start serial port
@@ -45,20 +38,15 @@ void setup() {
   myESC1.setOscillatorFrequency(26075000);
 
   /*
-  * Set the analog servo PWM frequency
-  * alternativly you could set this using the prescale 60Hz is a prescale of about 105 (depending on the internal oscillator frequency)
-  */
+   * Set the analog servo PWM frequency
+   * alternativly you could set this using the prescale 60Hz is a prescale of about 105 (depending on the internal oscillator frequency)
+   */
   myESC.setPWMFreq(SERVO_FREQ);
   myESC1.setPWMFreq(SERVO_FREQ);
 
   delay(10); // Set a small delay to allow the PCA9685 chips time to set their frequency
 
   pinMode(LED_PIN, OUTPUT);    // Set Pin for LED Visual Output
-
-  // Send the Arm value to each ESC so the ESCs will be ready to take commands
-  myESC.arm();
-  myESC1.arm();
-  delay(5);                     // Wait for 5 milliseconds before showing the LED visual for Arming confirmation
   digitalWrite(LED_PIN, HIGH);  // LED High Once Armed
 
   prescaleValue = 0;
@@ -74,20 +62,19 @@ void setup() {
 void loop() {
   if (Serial.available() > 0)                             // read the value from the serial
   {
-    oESC = Serial.parseInt();
+    oFrequancy = Serial.parseInt();
     // Lets try changing the pulse frequency of the I2C PWM/Servo extender chip range 40-1000Hz
-    myESC.setPWMFreq(oESC);
-    myESC1.setPWMFreq(oESC);
+    myESC.setPWMFreq(oFrequancy);
+    myESC1.setPWMFreq(oFrequancy);
     Serial.print("Input frequency 0x40:: ");
-    Serial.println(oESC);
+    Serial.println(oFrequancy);
     Serial.print("Actual prescale 0x40:: ");
     Serial.println(myESC.readPrescale());
     Serial.print("Input frequency 0x41:: ");
-    Serial.println(oESC);
+    Serial.println(oFrequancy);
     Serial.print("Actual prescale 0x41:: ");
     Serial.println(myESC1.readPrescale());
-    
 
-    delay(10); 
-  }                                           // Wait for a while before restarting the loop
+    delay(10);                                            // Wait for a while before restarting the loop
+  }
 }

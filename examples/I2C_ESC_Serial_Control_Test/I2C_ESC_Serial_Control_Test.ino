@@ -20,11 +20,13 @@ WireColor Coding:   black = ground
 **/
 
 #include "I2C_Array_ESC.h"
-#define LED_PIN (13)            // Pin for the LED 
-#define SPEED_MIN (1000)        // Set the Minimum Speed in microseconds
-#define SPEED_MAX (2000)        // Set the Maximum Speed in microseconds
-#define ARM_VALUE (500)         // Set the Arm value in microseconds
-#define SERVO_FREQ (60)         // Analog servos run at ~60 Hz updates
+#define LED_PIN (13)       // Pin for the LED 
+#define SPEED_MIN (1000)   // Set the Minimum Speed in microseconds
+#define SPEED_MAX (2000)   // Set the Maximum Speed in microseconds
+#define ARM_VALUE (500)    // Set the Arm value in microseconds
+#define SERVO_FREQ (60)    // Analog servos run at ~60 Hz updates
+#define ESC_PIN (0)        // Pin for the ESC on the I2C PWM/Servo extenders this value is the same for both extenders in this example
+#define ESC_REV_PIN (1)    // Pin for the revers line singal to the ESC on the I2C PWM/Servo extenders this value is the same for both extenders in this example
 
 I2C_Array_ESC myESC (0x40, SPEED_MIN, SPEED_MAX, ARM_VALUE);       // ESC_Name (I2C_address, ESC PIN, Minimum Value, Maximum Value, Default Speed, Arm Value)
 I2C_Array_ESC myESC1 (0x41, SPEED_MIN, SPEED_MAX, ARM_VALUE);      // ESC_Name (I2C_address, ESC PIN, Minimum Value, Maximum Value, Default Speed, Arm Value)
@@ -59,13 +61,13 @@ void setup() {
   pinMode(LED_PIN, OUTPUT);    // Set Pin for LED Visual Output
 
   // Send the Arm value to each ESC so the ESCs will be ready to take commands
-  myESC.arm();
-  myESC1.arm();
+  myESC.arm(ESC_PIN);
+  myESC1.arm(ESC_PIN);
   delay(5);                     // Wait for 5 milliseconds before showing the LED visual for Arming confirmation
   digitalWrite(LED_PIN, HIGH);  // LED High Once Armed
   delay(5000);                  // Wait for a while before going in to the loop
-  myESC.speed(SPEED_MIN);       // Set ESC to minimum speed now that the ESC should be Armed
-  myESC1.speed(SPEED_MIN);      // Set ESC to minimum speed now that the ESC should be Armed
+  myESC.speed(ESC_PIN, SPEED_MIN);       // Set ESC to minimum speed now that the ESC should be Armed
+  myESC1.speed(ESC_PIN, SPEED_MIN);      // Set ESC to minimum speed now that the ESC should be Armed
 }
 
 void loop() {
@@ -75,17 +77,17 @@ void loop() {
     if (oESC == 5)
     {
       Serial.println("stopping and setting all ESCs to reverse mode");
-      myESC.reverse();
-      myESC1.reverse();
+      myESC.reverse(ESC_REV_PIN);
+      myESC1.reverse(ESC_REV_PIN);
     }
     else
     {
-      myESC.speed(oESC);
-      myESC1.speed(oESC);
-      Serial.print(oESC);
+      myESC.speed(ESC_PIN, oESC);
+      myESC1.speed(ESC_PIN, oESC);
+      Serial.print(ESC_PIN, oESC);
       Serial.println(" speed for all ESCs");
     }
 
-    delay(10); 
-  }                                           // Wait for a while before restart
+    delay(10);                                            // Wait for a while before restart
+  }
 }

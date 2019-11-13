@@ -13,6 +13,8 @@
 #define SPEED_MAX (2000)         // Set the Minimum Speed in microseconds
 #define ARM_VALUE (500)          // Set the Arm value in microseconds
 #define FREQ (60)                // Analog servos run at ~60 Hz updates
+#define ESC_PIN (0)             // Pin for the ESC on the I2C PWM/Servo extender
+
 
 I2C_Array_ESC myESC (0x40, SPEED_MIN, SPEED_MAX, 500);       // ESC_Name (I2C_address, ESC PIN, Minimum Value, Maximum Value, Default Speed, Arm Value)
 int oESC;                                                 // Variable for the speed sent to the ESC
@@ -28,22 +30,22 @@ void setup() {
   delay(10); // Set a small delay to allow the PCA9685 chips time to set their frequency
 
   pinMode(LED_PIN, OUTPUT);                               // LED Visual Output
-  myESC.arm();                                            // Send the Arm value so the ESC will be ready to take commands
+  myESC.arm(ESC_PIN);                                     // Send the Arm value so the ESC will be ready to take commands
   digitalWrite(LED_PIN, HIGH);                            // LED High Once Armed
   delay(5000);                                            // Wait for a while
-  myESC.speed(SPEED_MIN);                                 // Set to minimum speed now that the ESC should be Armed
+  myESC.speed(ESC_PIN, SPEED_MIN);                        // Set to minimum speed now that the ESC should be Armed
 }
 
 void loop() {
   Serial.println("ESC Ramp up");
   for (oESC = SPEED_MIN; oESC <= SPEED_MAX; oESC += 1) {  // goes from Minimum microseconds to Maximum microseconds
-    myESC.speed(oESC);                                    // tell ESC to go to the oESC speed value
+    myESC.speed(ESC_PIN, oESC);                           // tell ESC to go to the oESC speed value
     delay(10);                                            // waits 10ms for the ESC to reach speed
   }
   delay(1000);
   Serial.println("ESC Ramp down");
   for (oESC = SPEED_MAX; oESC >= SPEED_MIN; oESC -= 1) {  // goes from Maximum microseconds to Minimum microseconds
-    myESC.speed(oESC);                                    // tell ESC to go to the oESC speed value
+    myESC.speed(ESC_PIN, oESC);                           // tell ESC to go to the oESC speed value
     delay(10);                                            // waits 10ms for the ESC to reach speed  
    }
   delay(5000);                                            // Wait for a while before restarting the loop

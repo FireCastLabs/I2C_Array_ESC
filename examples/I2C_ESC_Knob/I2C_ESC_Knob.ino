@@ -18,6 +18,7 @@
 #define SPEED_MAX (2000)        // Set the Maximum Speed in microseconds
 #define ARM_VALUE (500)         // Set the Arm value in microseconds
 #define FREQ (60)               // Analog servos run at ~60 Hz updates
+#define ESC_PIN (0)             // Pin for the ESC on the I2C PWM/Servo extender
 #define POT_PIN (A0)            // Analog pin used to connect the potentiometer
 
 I2C_Array_ESC myESC (0x40, SPEED_MIN, SPEED_MAX, ARM_VALUE);  // ESC_Name (PIN, Minimum Value, Maximum Value, Arm Value)
@@ -35,16 +36,16 @@ void setup() {
   delay(10); // Set a small delay to allow the PCA9685 chips time to set their frequency
 
   pinMode(LED_PIN, OUTPUT);             // LED Visual Output
-  myESC.arm();                          // Send the Arm value
+  myESC.arm(ESC_PIN);                          // Send the Arm value
   digitalWrite(LED_PIN, HIGH);          // LED High Once Armed
   delay(5000);                          // Wait for a while
-  myESC.speed(SPEED_MIN);               // Set to minimum speed now that the ESC should be Armed
+  myESC.speed(ESC_PIN, SPEED_MIN);               // Set to minimum speed now that the ESC should be Armed
 }
 
 void loop() {
   potVal = analogRead(POT_PIN);         // reads the value of the potentiometer (value between 0 and 1023)
   potVal = map(potVal, 0, 1023, SPEED_MIN, SPEED_MAX);  // scale it to use it with the ESC (value between Minimum and Maximum)
-  myESC.speed(potVal);                  // sets the ESC speed according to the scaled value
+  myESC.speed(ESC_PIN, potVal);                  // sets the ESC speed according to the scaled value
   delay(15);                            // Wait for a while before starting the loop over
 }
 

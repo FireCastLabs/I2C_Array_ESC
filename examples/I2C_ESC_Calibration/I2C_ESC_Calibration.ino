@@ -24,8 +24,9 @@
 #define SPEED_MAX (2000)        // Set the Maximum Speed in microseconds
 #define ARM_VALUE (500)         // Set the Arm value in microseconds
 #define SERVO_FREQ (60)         // Analog servos run at ~60 Hz updates
+#define ESC_PIN (0)             // Pin for the ESC
 
-I2C_Array_ESC myESC (0x40, 0, 1, SPEED_MIN, SPEED_MAX, ARM_VALUE);    // ESC_Name (I2C_address, ESC PIN, Minimum Value, Maximum Value, Default Speed, Arm Value)
+I2C_Array_ESC myESC (0x40, SPEED_MIN, SPEED_MAX, ARM_VALUE);    // ESC_Name (I2C_address, ESC PIN, Minimum Value, Maximum Value, Default Speed, Arm Value)
 
 void setup() {
   // Start serial port
@@ -52,8 +53,8 @@ void setup() {
   // Start calibration cycle
   pinMode(LED_PIN, OUTPUT);       // LED Visual Output
   digitalWrite(LED_PIN, HIGH);    // LED High while signal is High indicating it's time to power the ESC
-  myESC.calib();                  // Calibration of the Max and Min value the ESC is expecting
-  myESC.stop();                   // Stop the ESC to avoid damage or injuries
+  myESC.calib(ESC_PIN);                  // Calibration of the Max and Min value the ESC is expecting
+  myESC.stop(ESC_PIN);                   // Stop the ESC to avoid damage or injuries
   digitalWrite(LED_PIN, LOW);     // LED Low when the calibration is done (can be removed)
 }
 

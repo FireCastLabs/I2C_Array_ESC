@@ -25,9 +25,10 @@ WireColor Coding:   black = ground
 #define SPEED_MAX (2000)        // Set the Maximum Speed in microseconds
 #define ARM_VALUE (500)         // Set the Arm value in microseconds
 #define SERVO_FREQ (60)         // Analog servos run at ~60 Hz updates
+#define ESC_PIN (0)        // Pin for the ESC on the I2C PWM/Servo extender
+#define ESC_REV_PIN (1)    // Pin for the revers line singal to the ESC on the I2C PWM/Servo extender
 
 I2C_Array_ESC myESC (0x40, SPEED_MIN, SPEED_MAX, ARM_VALUE);       // ESC_Name (I2C_address, ESC PIN, Minimum Value, Maximum Value, Default Speed, Arm Value)
-I2C_Array_ESC myESC1 (0x41, SPEED_MIN, SPEED_MAX, ARM_VALUE);      // ESC_Name (I2C_address, ESC PIN, Minimum Value, Maximum Value, Default Speed, Arm Value)
 int oESC;                                                 // Variable for the speed sent to the ESC
 
 void setup() {
@@ -37,7 +38,6 @@ void setup() {
 
   //Set up the PWM extenders
   myESC.begin();
-  myESC1.begin();
 
   /*
    * In theory the internal oscillator (clock) is 25MHz but it really isn't that precise. 
@@ -45,23 +45,21 @@ void setup() {
    * The int.osc. is closer to 27MHz and is used for calculating things like writeMicroseconds
    */
   myESC.setOscillatorFrequency(26075000);
-  myESC1.setOscillatorFrequency(26075000);
 
   /*
   * Set the analog servo PWM frequency
   * alternativly you could set this using the prescale 60Hz is a prescale of about 105 (depending on the internal oscillator frequency)
   */
   myESC.setPWMFreq(SERVO_FREQ);  
-  myESC1.setPWMFreq(SERVO_FREQ);
 
   pinMode(LED_PIN, OUTPUT);    // Set Pin for LED Visual Output
 
   // Send the Arm value to each ESC so the ESCs will be ready to take commands
-  myESC.arm();
-  myESC1.arm();
+  myESC.arm(ESC_PIN);
   delay(5);                     // Wait for 5 milliseconds before showing the LED visual for Arming confirmation
   digitalWrite(LED_PIN, HIGH);  // LED High Once Armed
   delay(1000);                  // Wait for a while before going in to the loop
+  myESC.speed(ESC_PIN, SPEED_MIN);   // set speed to minimum to confirm activation of motor
 }
 
 void loop() {
@@ -71,17 +69,15 @@ void loop() {
     // if (oESC == 5)
     // {
     //   Serial.println("stopping and setting all ESCs to reverse mode");
-    //   myESC.reverse();
-    //   myESC1.reverse();
+    //   myESC.reverse(ESC_REV_PIN);
     // }
     // else
     // {
-      myESC.speed(oESC);
-      myESC1.speed(oESC);
+      myESC.speed(ESC_PIN, oESC);
       Serial.print(oESC);
       Serial.println(" speed for all ESCs");
     //}
 
-    delay(10); 
-  }                                           // Wait for a while before restart
+    delay(10);                                            // Wait for a while before restart
+  }
 }
