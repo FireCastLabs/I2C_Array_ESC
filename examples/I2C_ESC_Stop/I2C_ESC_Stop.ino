@@ -22,7 +22,7 @@ void setup() {
   Serial.println("I2C Controller Test with ESC");
   //Set up the PWM extenders
   myESC.begin();
-    /*
+  /*
    * In theory the internal oscillator is 25MHz but it really isn't that precise. 
    * You can 'calibrate' by tweaking this number till you get the frequency you're expecting!
    */
@@ -31,17 +31,17 @@ void setup() {
 
   delay(10); // Set a small delay to allow the PCA9685 chips time to set their frequency
 
-  pinMode(LED_PIN, OUTPUT);       // LED Visual Output
-  myESC.arm(ESC_PIN);                    // Send the Arm value so the ESC will be ready to take commands
-  digitalWrite(LED_PIN, HIGH);    // LED High Once Armed
-  delay(5000);                    // Wait for a while
-  myESC.speed(ESC_PIN, SPEED_MIN);         // Set ESC to minimum speed now that the ESC should be Armed
+  pinMode(LED_PIN, OUTPUT);        // LED Visual Output
+  myESC.arm(ESC_PIN);              // Send the Arm value so the ESC will be ready to take commands
+  digitalWrite(LED_PIN, HIGH);     // LED High Once Armed
+  delay(5000);                     // Wait for a while
+  myESC.speed(ESC_PIN, SPEED_MIN); // Set ESC to minimum speed now that the ESC should be Armed
 }
 
 void loop() {
-  myESC.speed(1100);              // Set the speed to a testing value between SPEED_MIN (1000) and SPEED_MAX (2000)
-  delay(500);                     // Wait for a while 
-  myESC.stop(ESC_PIN);            // Stop the ESC altogether
-  delay(5000);                    // Wait for a while until we restart the loop
+  myESC.speed(ESC_PIN, 1200);      // Set the speed to a testing value between SPEED_MIN (1000) and SPEED_MAX (2000)
+  delay(500);                      // Wait for a while 
+  myESC.stop(ESC_PIN);             // Stop the ESC altogether
+  delay(5000);                     // Wait for a while until we restart the loop
 }
 
