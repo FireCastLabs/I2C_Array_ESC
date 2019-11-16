@@ -9,7 +9,10 @@
 **/
 
 #include "I2C_Array_ESC.h"
-#define LED_PIN (13)            // Pin for the LED 
+#define LED_PIN (13)            // Pin for the LED
+#define SPEED_MIN (1000)        // Set the Minimum Speed in microseconds
+#define SPEED_MAX (2000)        // Set the Maximum Speed in microseconds
+#define ARM_VALUE (500)         // Set the Arm value in microseconds
 #define SERVO_FREQ (60)         // Analog servos run at ~60 Hz updates
 
 
