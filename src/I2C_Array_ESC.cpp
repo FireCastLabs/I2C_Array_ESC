@@ -83,7 +83,6 @@ void I2C_Array_ESC::arm(int pin)
  */
 void I2C_Array_ESC::armArray(void)
 {
-{
 	for (int count=0; count<8; count++)
 	{
 		I2C_Servo.writeMicroseconds(oPin[count], oArm);
@@ -202,7 +201,7 @@ void I2C_Array_ESC::rampSpeedArray(int speedInitial, int speedFinal, int step, i
  */
 void I2C_Array_ESC::reverse(int pin)
 {
-	// stop the motor before sending the reverse signal
+	// stop the ESC before sending the reverse signal
 	stop(pin);
 	// check whether we are in reverse mode
 	if (REVERSE_MODE == false)
@@ -225,7 +224,7 @@ void I2C_Array_ESC::reverse(int pin)
  */
 void I2C_Array_ESC::reverseArray(void)
 {
-	// stop the motor before sending the reverse signal
+	// stop the ESCs before sending the reverse signal
 	stopArray();
 	// check whether we are in reverse mode
 	if (REVERSE_MODE == false)
