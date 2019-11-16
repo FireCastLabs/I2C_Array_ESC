@@ -56,8 +56,8 @@ class I2C_Array_ESC
 	// < Local attributes >
 		// Hardware
 		uint8_t oBoard = 0x40; // The I2C address on a TwoWire interface
-		int oPin[] = {0,2,4,6,8,10,12,14};	// An array of output Pins on the Adafruit PCA9685 16-Channel Servo Driver
-		int rPin[] = {1,3,5,7,9,11,13,15};	// An array of Pins for a reverse signal on the Adafruit PCA9685 16-Channel Servo Driver
+		int oPin[8] = {0,2,4,6,8,10,12,14};	// An array of output Pins on the Adafruit PCA9685 16-Channel Servo Driver
+		int rPin[8] = {1,3,5,7,9,11,13,15};	// An array of Pins for a reverse signal on the Adafruit PCA9685 16-Channel Servo Driver
 		bool REVERSE_MODE = false; // a boolean for if the ESC is in Reverse mode
 
 		// Calibration
