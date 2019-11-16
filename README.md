@@ -23,24 +23,38 @@ Adafruit PCA9685 16-Channel Servo Drivers can be purchased on [Adafruit’s webs
 
 ## Documentation
 
-- `I2C_ESC(uint8_t I2C_Address, int ESC_pin, int rev_pin, int outputMin, int outputMax, int armVal)`
+- `I2C_ESC(uint8_t I2C_Address, int outputMin, int outputMax, int armVal)`
   - Default constructor
-- `calib()`
-  - Calibrate motor
-- `arm()`
-  - Arm motor
-- `stop()`
-  - Stop motor
-- `speed(int speed)`
-  - Set speed for motor
+    - ESCs are plugged in with the control signal line then the reverse signal line. That gives pins 0 and 1 to the first ESC then 2 and 3 to the second ESC, etc
+- `calib(int ESC_pin)`
+  - Calibrate ESC on ESC_Pin
+- `calibArray()`
+  - Calibrate the Array of ESCs
+- `arm(int ESC_pin)`
+  - Arm ESC on ESC_Pin
+- `armArray()`
+  - Arm the Array of ESCs
+- `stop(int ESC_pin)`
+  - Send the stop pulse to the ESC on ESC_Pin to stop the motor
+- `stopArray()`
+  - Send the stop pulse to the Array of ESCs to stop the array of motors
+- `speed(int ESC_pin, int speed)`
+  - Send the speed pulse between the min and max calibration limits to the ESC on ESC_Pin to set the motor speed
+- `speedArray(int speed)`
+  - Send the speed pulse between the min and max calibration limits to the array of ESCs to set the motor array speed
+- `reverse(int rev_pin)`
+  - tell the ESC on ESC_Pin to stop and reverse the motor
 - `reverse()`
-  - stop and reverse the motors
+  - tell the array of ESCs to stop and reverse the motor array
+- `rampSpeed(int ESC_pin, int speedInitial, int speedFinal, int step = 1, int stepTime = 10)`
+  - Change the ESC/motor speed on ESC_Pin by step value from an initial to final speed. The step time is how long in milliseconds between each step
+- `rampSpeedArray(int speedInitial, int speedFinal, int step = 1, int stepTime = 10)`
+  - Change the array of ESCs/motors speed by step value from an initial to final speed. The step time is how long in milliseconds between each step
 - `setCalibrationDelay(uint32_t calibration_delay)`
   - set the calibration delay for ESC calibration. Default delay is 8000 ms
 - `setStopPulse(uint32_t stop_pulse)`
   - set the stop pulse value. The default is 500 us
-- `rampSpeed(int speedInitial, int speedFinal, int step = 1, int stepTime = 10)`
-  - Change the ESC/motor speed by step value from an initial to final speed. The step time is how long in milliseconds between each step
+
 
   ## Version History
   - no releases have been made yet
