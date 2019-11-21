@@ -2,7 +2,7 @@
 An ESC control library for controlling an Aerostar RVS TYPE ESC w/Reverse Function line over an Adafruit PCA9685 16-Channel 12-bit PWM/Servo Driver and I2C interface
 
 ## Summary
-This Library is an extension of the first draft I2C_ESC Library to see the full Adafruit PCA9685 16-Channel 12-bit PWM/Servo Driver as a block controlling 8 ESC's with revers function lines. The original I2C_ESC Library is based on [RB-ENantel/RC_ESC library](https://github.com/RB-ENantel/RC_ESC) and extended to work with Adafruit PCA9685 16-Channel Servo Drivers on the I2C bus and fully wraps the [adafruit/Adafruit-PWM-Servo-Driver-Library](https://github.com/adafruit/Adafruit-PWM-Servo-Driver-Library). That is carried over to this library.
+This Library is an extension of the first draft I2C_ESC Library to see the full Adafruit PCA9685 16-Channel 12-bit PWM/Servo Driver as a block controlling 8 ESC's with reverse function lines. The original I2C_ESC Library is based on [RB-ENantel/RC_ESC library](https://github.com/RB-ENantel/RC_ESC) and extended to work with Adafruit PCA9685 16-Channel Servo Drivers on the I2C bus and fully wraps the [adafruit/Adafruit-PWM-Servo-Driver-Library](https://github.com/adafruit/Adafruit-PWM-Servo-Driver-Library). That is carried over to this library.
 
 ## Supported platforms
 
