@@ -5,14 +5,14 @@
 
     Based on the 27 April 2017 Sketch by Eric Nantel and his RC_ESC library for Robot shop
     rewritten for use in the I2C_Array_ESC library with the Adafruit PCA9685 16-Channel 12-bit PWM/Servo Driver - I2C interface
- */
+**/
 #include "I2C_Array_ESC.h"
 #define LED_PIN (13)            // Pin for the LED
 #define SPEED_MIN (1000)        // Set the Minimum Speed in microseconds
 #define SPEED_MAX (2000)        // Set the Maximum Speed in microseconds
 #define ARM_VALUE (500)         // Set the Arm value in microseconds
-#define FREQ (60)               // Analog servos run at ~60 Hz updates
-#define ESC_PIN (0)        // Pin for the ESC on the I2C PWM/Servo extender
+#define SERVO_FREQ (50)         // Analog servos run at ~50 Hz updates
+#define ESC_PIN (0)             // Pin for the ESC on the I2C PWM/Servo extender
 
 I2C_Array_ESC myESC (0x40, SPEED_MIN, SPEED_MAX, ARM_VALUE);       // ESC_Name (I2C_address, ESC PIN, Minimum Value, Maximum Value, Default Speed, Arm Value)
 
