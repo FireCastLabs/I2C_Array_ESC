@@ -23,7 +23,7 @@
 #define SPEED_MIN (1000)        // Set the Minimum Speed in microseconds
 #define SPEED_MAX (2000)        // Set the Maximum Speed in microseconds
 #define ARM_VALUE (500)         // Set the Arm value in microseconds
-#define SERVO_FREQ (60)         // Analog servos run at ~60 Hz updates
+#define SERVO_FREQ (50)         // Analog servos run at ~50 Hz updates
 #define ESC_PIN (0)             // Pin for the ESC
 
 I2C_Array_ESC myESC (0x40, SPEED_MIN, SPEED_MAX, ARM_VALUE);    // ESC_Name (I2C_address, ESC PIN, Minimum Value, Maximum Value, Default Speed, Arm Value)
@@ -32,21 +32,29 @@ void setup() {
   // Start serial port
   Serial.begin(9600);
   Serial.println("ESC calibration over the I2C based PWM/Servo control");
-  // Set up the I2C based PWM/Servo extenders
+  
+  /*
+   * Set up the I2C based PWM/Servo extenders
+   * This is only done once per Adafruit PCA9685 PWM/Servo driver
+   */
   myESC.begin();
 
   /*
    * In theory the internal oscillator (clock) is 25MHz but it really isn't that precise. 
    * You can 'calibrate' by tweaking this number till you get the frequency you're expecting!
    * The int.osc. is closer to 27MHz and is used for calculating things like writeMicroseconds
+   * This is only done once per Adafruit PCA9685 PWM/Servo driver
    */
   myESC.setOscillatorFrequency(26075000);
 
  /*
   * Set the analog servo PWM frequency
-  * alternativly you could set this using the prescale 60Hz is a prescale of about 105 (depending on the internal oscillator frequency)
+  * alternativly you could set this using the prescale 50Hz is a prescale of about ### (depending on the internal oscillator frequency)
+  * This is only done once per Adafruit PCA9685 PWM/Servo driver
   */
   myESC.setPWMFreq(SERVO_FREQ);
+
+  delay(10); // Set a delay to allow the PCA9685 chips to set their frequency
 
   delay(10); // Set a delay to allow the PCA9685 chips to set their frequency
 
