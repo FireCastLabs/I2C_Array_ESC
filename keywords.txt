@@ -6,7 +6,7 @@
 # Datatypes and classes (KEYWORD1)
 #######################################
 
-I2C_ESC	KEYWORD1
+I2C_Array_ESC	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)

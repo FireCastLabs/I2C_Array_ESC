@@ -1,12 +1,12 @@
-# I2C_ESC  [![Build Status](https://travis-ci.com/FireCastLabs/I2C_Array_ESC.svg?branch=master)](https://travis-ci.com/FireCastLabs/I2C_Array_ESC)
+# I2C_Array_ESC  [![Build Status](https://travis-ci.com/FireCastLabs/I2C_Array_ESC.svg?branch=master)](https://travis-ci.com/FireCastLabs/I2C_Array_ESC)
 An ESC control library for controlling an Aerostar RVS TYPE ESC w/Reverse Function line over an Adafruit PCA9685 16-Channel 12-bit PWM/Servo Driver and I2C interface
 
 ## Summary
-This Library is based on [RB-ENantel/RC_ESC library](https://github.com/RB-ENantel/RC_ESC) and extended to work with Adafruit PCA9685 16-Channel Servo Drivers on the I2C bus and fully wraps the [adafruit/Adafruit-PWM-Servo-Driver-Library](https://github.com/adafruit/Adafruit-PWM-Servo-Driver-Library)
+This Library is an extension of the first draft I2C_ESC Library to see the full Adafruit PCA9685 16-Channel 12-bit PWM/Servo Driver as a block controlling 8 ESC's with revers function lines. The original I2C_ESC Library is based on [RB-ENantel/RC_ESC library](https://github.com/RB-ENantel/RC_ESC) and extended to work with Adafruit PCA9685 16-Channel Servo Drivers on the I2C bus and fully wraps the [adafruit/Adafruit-PWM-Servo-Driver-Library](https://github.com/adafruit/Adafruit-PWM-Servo-Driver-Library). That is carried over to this library.
 
 ## Supported platforms
 
-This Library is designed to work with the Arduino IDE versions 1.8.x or later; we have not tested it with earlier versions.  This Library should support any Arduino compatible board and the Adafruit PCA9685 I2C 16-Channel PWM/Servo Drivers
+This Library is designed to work with the Arduino IDE versions 1.8.x or later; we have not tested it with earlier versions. This Library should support any Arduino compatible board and the Adafruit PCA9685 I2C 16-Channel PWM/Servo Drivers
 
 ## Getting Started
 Basic Instructions on how to use the ESC portion of the library can be found in the following Robotshop blog post.
@@ -23,7 +23,7 @@ Adafruit PCA9685 16-Channel Servo Drivers can be purchased on [Adafruit’s webs
 
 ## Documentation
 
-- `I2C_ESC(uint8_t I2C_Address, int outputMin, int outputMax, int armVal)`
+- `I2C_Array_ESC(uint8_t I2C_Address, int outputMin, int outputMax, int armVal)`
   - Default constructor
     - ESCs are plugged in with the control signal line then the reverse signal line. That gives pins 0 and 1 to the first ESC then 2 and 3 to the second ESC, etc
 - `calib(int ESC_pin)`
