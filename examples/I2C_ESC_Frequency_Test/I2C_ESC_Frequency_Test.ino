@@ -72,7 +72,7 @@ void setup() {
 void loop() {
   if (Serial.available() > 0)                             // read the value from the serial
   {
-    oFrequancy = Serial.parseInt();
+    oFrequency = Serial.parseInt();
     // Lets try changing the pulse frequency of the I2C PWM/Servo extender chip range 40-1000Hz
     myESC.setPWMFreq(oFrequency);
     myESC1.setPWMFreq(oFrequency);
