@@ -206,12 +206,12 @@ void I2C_Array_ESC::reverse(int pin)
 	// check whether we are in reverse mode
 	if (REVERSE_MODE == false)
 	{
-		I2C_Servo.setPWM(pin, 4096, 0);  // turns pin fully on
+		I2C_Servo.setPWM(pin+1, 4096, 0);  // turns pin+1 fully on
 		REVERSE_MODE = true; // we are now in reverse mode
 	}
 	else
 	{
-		I2C_Servo.setPWM(pin, 0, 4096);  // turns pin fully off
+		I2C_Servo.setPWM(pin+1, 0, 4096);  // turns pin+1 fully off
 		REVERSE_MODE = false; // We are no longer in reverse mode
 	}
 
@@ -231,7 +231,7 @@ void I2C_Array_ESC::reverseArray(void)
 	{
 		for (int count=0; count<8; count++) // cycle through the ESCs
 		{
-			I2C_Servo.setPWM(oPin[count], 4096, 0);  // turns pin fully on
+			I2C_Servo.setPWM(oPin[count+1], 4096, 0);  // turns pins+1 fully on
 		}
 		REVERSE_MODE = true; // we are now in reverse mode
 	}
@@ -239,7 +239,7 @@ void I2C_Array_ESC::reverseArray(void)
 	{
 		for (int count=0; count<8; count++) // cycle through the ESCs
 		{
-			I2C_Servo.setPWM(oPin[count], 0, 4096);  // turns pin fully off
+			I2C_Servo.setPWM(oPin[count+1], 0, 4096);  // turns pins+1 fully off
 		}
 		REVERSE_MODE = false; // We are no longer in reverse mode
 	}
@@ -251,7 +251,7 @@ void I2C_Array_ESC::reverseArray(void)
 /*
  * Wrap the Adafruit_PWMServoDriver functions
  * These are 1-to-1 mappings and need to be checked when the wapped Library changes
- * Updated with adafruit/Adafruit-PWM-Servo-Driver-Library v2.2.0
+ * Updated with adafruit/Adafruit-PWM-Servo-Driver-Library v2.3.0
  */
 
 void I2C_Array_ESC::begin(uint8_t prescale)
