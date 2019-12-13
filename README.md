@@ -42,9 +42,9 @@ Adafruit PCA9685 16-Channel Servo Drivers can be purchased on [Adafruit’s webs
   - Send the speed pulse between the min and max calibration limits to the ESC on ESC_Pin to set the motor speed
 - `speedArray(int speed)`
   - Send the speed pulse between the min and max calibration limits to the array of ESCs to set the motor array speed
-- `reverse(int rev_pin)`
+- `reverse(int ESC_pin)`
   - tell the ESC on ESC_Pin to stop and reverse the motor
-- `reverse()`
+- `reverseArray()`
   - tell the array of ESCs to stop and reverse the motor array
 - `rampSpeed(int ESC_pin, int speedInitial, int speedFinal, int step = 1, int stepTime = 10)`
   - Change the ESC/motor speed on ESC_Pin by step value from an initial to final speed. The step time is how long in milliseconds between each step
